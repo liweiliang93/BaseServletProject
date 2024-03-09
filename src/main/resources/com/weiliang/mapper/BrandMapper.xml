@@ -8,9 +8,8 @@
     </resultMap>
 
     <delete id="deleteByIds">
-        delete from tb_brand
-        where id in
-        <foreach collection="ids" item="id" open="(" separator="," close=")">
+        delete from tb_brand where id in
+        <foreach collection="ids" item="id" separator="," open="("  close=")">
             #{id}
         </foreach>
     </delete>

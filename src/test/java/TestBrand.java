@@ -58,4 +58,5 @@ public class TestBrand {
         int pageSize = 5;
         System.out.println(brandServcie.selectByPageAndCondition(currentPage, pageSize, brand));
     }
+
 }

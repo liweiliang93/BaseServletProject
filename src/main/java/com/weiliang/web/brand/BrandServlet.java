@@ -20,7 +20,7 @@ import java.util.List;
  * @date 2024-03-07 18:37:04
  */
 @WebServlet("/brand/*")
-public class BrandServlet extends BaseServlet {
+public class BrandServlet extends BaseServlet{
     private final BrandService brandService = new BrandServcieImpl();
 
     /**
@@ -32,7 +32,7 @@ public class BrandServlet extends BaseServlet {
     public void selectAll(HttpServletRequest request, HttpServletResponse response) throws IOException{
         List<Brand> brands = brandService.selectAll();
         String jsonString = JSON.toJSONString(brands);
-        response.setContentType("application/json;charset=utf-8");
+        response.setContentType("text/json;charset=utf-8");
         response.getWriter().write(jsonString);
     }
 
@@ -86,7 +86,6 @@ public class BrandServlet extends BaseServlet {
         String jsonString = stringBuilder.toString();
         //将json字符串转换为对象
         Brand brand = JSON.parseObject(jsonString, Brand.class);
-        System.out.println(brand);
         List<Brand> brands = brandService.selectByCondition(brand);
         String jsonStrings = JSON.toJSONString(brands);
         response.setContentType("application/json;charset=utf-8");
@@ -113,14 +112,13 @@ public class BrandServlet extends BaseServlet {
         String jsonString = stringBuilder.toString();
         //将json字符串转换为对象
         Brand brand = JSON.parseObject(jsonString, Brand.class);
-        System.out.println(brand);
-        System.out.println(currentPage);
-        System.out.println(pageSize);
         //分页查询
-        PageBean<Brand> pageBean = brandService.selectByPageAndCondition(Integer.parseInt(currentPage), Integer.parseInt(pageSize), brand);
-        jsonString = JSON.toJSONString(pageBean);
-        response.setContentType("application/json;charset=utf-8");
-        response.getWriter().write(jsonString);
+        if(brand != null){
+            PageBean<Brand> pageBean = brandService.selectByPageAndCondition(Integer.parseInt(currentPage), Integer.parseInt(pageSize), brand);
+            jsonString = JSON.toJSONString(pageBean);
+            response.setContentType("application/json;charset=utf-8");
+            response.getWriter().write(jsonString);
+        }
     }
 
     /**
@@ -131,13 +129,12 @@ public class BrandServlet extends BaseServlet {
      **/
     public void deleteByIds(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //请求方式:http://localhost:8080/BaseServletProject/brand/deleteByIds?ids=1,2,3.....
-        String ids = request.getParameter("ids");
-        String[] idArray = ids.split(",");
-        int[] idInt = new int[idArray.length];
-        for (int i = 0; i < idArray.length; i++) {
-            idInt[i] = Integer.parseInt(idArray[i]);
+        BufferedReader reader = request.getReader();
+        String params = reader.readLine();
+        int[] ids = JSON.parseObject(params, int[].class);
+        if(ids != null){
+            brandService.deleteByIds(ids);
         }
-        brandService.deleteByIds(idInt);
         response.setContentType("application/json;charset=utf-8");
         response.getWriter().write("删除成功");
     }
@@ -201,6 +198,7 @@ public class BrandServlet extends BaseServlet {
         String jsonString = stringBuilder.toString();
         //将json字符串转换为对象
         Brand brand = JSON.parseObject(jsonString, Brand.class);
+        System.out.println(brand);
         brandService.update(brand);
         response.setContentType("application/json;charset=utf-8");
         response.getWriter().write("修改成功");

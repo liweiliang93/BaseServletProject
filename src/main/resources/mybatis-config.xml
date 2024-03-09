@@ -16,8 +16,8 @@
             <transactionManager type="JDBC"/>   <!--事务的管理方式:JDBC-->
             <dataSource type="POOLED">      <!--数据库连接池-->
                 <!--数据库连接信息-->
-                <property name="driver" value="com.mysql.jdbc.Driver"/> <!--注册驱动-->
-                <property name="url" value="jdbc:mysql:///db1?useSSL=false"/>   <!--url-->
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/> <!--注册驱动-->
+                <property name="url" value="jdbc:mysql:///db1?useSSL=true&amp;serverTimezone=UTC"/>   <!--url-->
                 <property name="username" value="root"/>    <!--用户名-->
                 <property name="password" value="liang521.."/>  <!--密码-->
             </dataSource>

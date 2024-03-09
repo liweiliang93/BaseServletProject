@@ -14,7 +14,6 @@ public class PageBean<T> {
     // 当前页数据
     private List<T> rows;
 
-
     public int getTotalCount() {
         return totalCount;
     }
