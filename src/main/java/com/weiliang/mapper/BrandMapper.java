@@ -19,7 +19,6 @@ public interface BrandMapper {
      * @return: java.util.List<com.weiliang.entity.Brand>            2024/3/7 18:17
      **/
     @Select("select * from tb_brand")
-    @ResultMap("brandResultMap")
     List<Brand> selectAll();
 
     /**
@@ -29,7 +28,6 @@ public interface BrandMapper {
      * @return: com.weiliang.entity.Brand            2024/3/7 19:03
      **/
     @Select("select * from tb_brand where id = #{id}")
-    @ResultMap("brandResultMap")
     Brand selectById(@Param("id") Integer id);
 
     /**
@@ -48,7 +46,6 @@ public interface BrandMapper {
      * @return: java.util.List<com.weiliang.entity.Brand>            2024/3/7 19:11
      **/
     @Select("select * from tb_brand limit #{start},#{rows}")
-    @ResultMap("brandResultMap")
     List<Brand> selectByPage(@Param("start") int start, @Param("rows") int rows);
 
     /**
@@ -65,7 +62,7 @@ public interface BrandMapper {
      * @paramType: [com.weiliang.entity.Brand]
      * @return: java.util.List<com.weiliang.entity.Brand>            2024/3/7 19:11
      **/
-    List<Brand> selectByCondition(@Param("brand")Brand brand);
+    List<Brand> selectByCondition(Brand brand);
 
     /**
      * @details: 分页查询
@@ -81,7 +78,7 @@ public interface BrandMapper {
      * @paramType: [int[]]
      * @return: void            2024/3/7 19:05
      **/
-    void deleteByIds(@Param("ids") int[] ids);
+    void deleteByIds(int[] ids);
 
     /**
      * @details: 单个删除

@@ -72,7 +72,6 @@ public class BrandServcieImpl implements BrandService{
         return pageBean;
     }
 
-
     @Override
     public void deleteByIds(int[] ids) {
         SqlSession sqlSession = sqlSessionFactory.openSession();

@@ -1,5 +1,6 @@
 package com.weiliang.util;
 
+import lombok.Getter;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -14,7 +15,9 @@ import java.io.InputStream;
  */
 public class SqlSessionFactoryUtils {
 
+    //通过getSqlSessionFactory()方法获取同一个sqlSessionFactory,防止资源浪费.
     //声明sqlSessionFactory静态对象,只加载一次
+    @Getter
     private static SqlSessionFactory sqlSessionFactory;
 
     //静态代码块内获取sqlSessionFactory对象,只生成一次
@@ -26,9 +29,5 @@ public class SqlSessionFactoryUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    //通过getSqlSessionFactory()方法获取同一个sqlSessionFactory,防止资源浪费.
-    public static SqlSessionFactory getSqlSessionFactory(){
-        return sqlSessionFactory;
     }
 }

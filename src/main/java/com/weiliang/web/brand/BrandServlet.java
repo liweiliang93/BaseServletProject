@@ -103,6 +103,7 @@ public class BrandServlet extends BaseServlet{
         request.setCharacterEncoding("utf-8");
         String currentPage = request.getParameter("currentPage");
         String pageSize = request.getParameter("pageSize");
+
         BufferedReader reader = request.getReader();
         String line = null;
         StringBuilder stringBuilder = new StringBuilder();
@@ -110,6 +111,7 @@ public class BrandServlet extends BaseServlet{
             stringBuilder.append(line);
         }
         String jsonString = stringBuilder.toString();
+
         //将json字符串转换为对象
         Brand brand = JSON.parseObject(jsonString, Brand.class);
         //分页查询
